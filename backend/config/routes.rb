@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   post 'auth/login', to: 'auth#login'
 
-  resources :products
+  resources :products, :combos
 
   # root "posts#index"
   root "products#index"
