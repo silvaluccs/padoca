@@ -10,9 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_10_154347) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_10_174001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  # Custom types defined in this database.
+  # Note that some types may not work with other database engines. Be careful if changing database.
+  create_enum "product_category", ["salgado", "doce", "bebida"]
+
+  create_table "admins", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "email", null: false
+    t.string "password_digest", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_admins_on_email", unique: true
+  end
 
   create_table "combo_products", force: :cascade do |t|
     t.bigint "combo_id", null: false
@@ -58,7 +70,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_10_154347) do
 
   create_table "products", force: :cascade do |t|
     t.boolean "active", default: true, null: false
-    t.string "category", null: false
+    t.enum "category", default: "salgado", null: false, enum_type: "product_category"
     t.datetime "created_at", null: false
     t.string "name", null: false
     t.decimal "price", precision: 10, scale: 2, null: false
