@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :authorize_request, only: [:create, :update, :destroy]
+  before_action :authorize_request, only: [ :create, :update, :destroy ]
 
   def index
     @products = Product.all
@@ -36,7 +36,7 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
 
     if @product.destroy
-      render json: { message: 'Product deleted successfully' }, status: :no_content
+      render json: { message: "Product deleted successfully" }, status: :no_content
     else
       render json: { errors: product.errors.full_messages }, status: :unprocessable_entity
     end

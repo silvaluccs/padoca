@@ -68,8 +68,8 @@ Rails.application.configure do
   # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
 
-# Esta linha resolve o problema para ActionController e Serializers
-  config.action_controller.default_url_options = { host: 'localhost', port: 3000 }
+  # Esta linha resolve o problema para ActionController e Serializers
+  config.action_controller.default_url_options = { host: "localhost", port: 3000 }
 
   # Esta linha é necessária para o Active Storage gerar as URLs internas
   config.active_storage.resolve_model_to_route = :rails_storage_proxy

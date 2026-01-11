@@ -7,8 +7,8 @@ class ChangeCategoryToEnumInProducts < ActiveRecord::Migration[7.1]
 
     # 2. Altera a coluna usando SQL puro para evitar erro de sintaxe do ActiveRecord
     execute <<-SQL
-      ALTER TABLE products 
-      ALTER COLUMN category TYPE product_category 
+      ALTER TABLE products#{' '}
+      ALTER COLUMN category TYPE product_category#{' '}
       USING category::product_category;
     SQL
 
@@ -20,11 +20,11 @@ class ChangeCategoryToEnumInProducts < ActiveRecord::Migration[7.1]
   def down
     # Reverte para string
     execute <<-SQL
-      ALTER TABLE products 
-      ALTER COLUMN category TYPE varchar 
+      ALTER TABLE products#{' '}
+      ALTER COLUMN category TYPE varchar#{' '}
       USING category::text;
     SQL
-    
+
     execute "DROP TYPE product_category;"
   end
 end

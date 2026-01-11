@@ -1,6 +1,6 @@
 class CombosController < ApplicationController
-  before_action :authorize_request, only: [:create, :update, :destroy]
-  before_action :set_combo, only: [:show, :update, :destroy]
+  before_action :authorize_request, only: [ :create, :update, :destroy ]
+  before_action :set_combo, only: [ :show, :update, :destroy ]
 
   def index
     combos = Combo.includes(:image_attachment, products: :image_attachment).all

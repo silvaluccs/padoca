@@ -5,7 +5,7 @@ class ComboSerializer < Blueprinter::Base
   field :image_url do |combo|
     if combo.image.attached?
       # Usamos o helper diretamente pelo objeto Rails para evitar conflito de escopo
-      Rails.application.routes.url_helpers.rails_blob_url(combo.image, host: 'localhost:3000')
+      Rails.application.routes.url_helpers.rails_blob_url(combo.image, host: "localhost:3000")
     end
   end
 
