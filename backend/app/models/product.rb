@@ -12,5 +12,5 @@ class Product < ApplicationRecord
   }
 
   validates :name, :price, :category, presence: true
-  validates :image, attached: true, content_type: [:png, :jpg, :jpeg], size: { less_than: 5.megabytes , message: 'should be less than 5MB' }
+  validates :image, attached: true, content_type: [ :png, :jpg, :jpeg ], size: { less_than: 5.megabytes, message: "should be less than 5MB" }
 end

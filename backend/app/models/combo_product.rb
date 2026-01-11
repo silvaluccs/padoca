@@ -1,3 +1,5 @@
+# TODO: REMOVE THIS MODEL
+
 class ComboProduct < ApplicationRecord
   belongs_to :combo
   belongs_to :product

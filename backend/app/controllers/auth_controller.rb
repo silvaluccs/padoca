@@ -7,15 +7,15 @@ class AuthController < ApplicationController
       token = JsonWebToken.encode(user_id: user.id)
       render json: { token: token }, status: :ok
     else
-      render json: { error: 'Invalid email or password' }, status: :unauthorized
+      render json: { error: "Invalid email or password" }, status: :unauthorized
     end
   end
 
   private
 
   def authorize_request
-    header = request.headers['Authorization']
-    header = header.split(' ').last if header
+    header = request.headers["Authorization"]
+    header = header.split(" ").last if header
     begin
       @decoded = JsonWebToken.decode(header)
       @current_user = Admin.find(@decoded[:user_id])
