@@ -4,5 +4,6 @@ config/master.key
 log/*.log
 tmp/**
 public/assets/**
+node_modules/
 
 
