@@ -19,4 +19,21 @@ class ApplicationController < ActionController::API
       render json: { errors: e.message }, status: :unauthorized
     end
   end
+
+  def index
+    @combos = Combo.all
+    @products = Product.all
+
+    @combos_json = []
+    @products_json = []
+
+    @combos.each do |combo|
+      @combos_json << ComboSerializer.render(combo)
+    end
+
+    @products.each do |product|
+      @products_json << ProductSerializer.render(product)
+    end
+    render json: { combos: @combos_json, products: @products_json }, status: :ok
+  end
 end
