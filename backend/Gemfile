@@ -54,3 +54,5 @@ gem "bcrypt", "~> 3.1.7"
 gem "active_storage_validations"
 
 gem "blueprinter"
+
+gem "rack-cors", "~> 3.0"
