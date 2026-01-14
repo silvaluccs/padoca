@@ -1,37 +1,56 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useEffect, useState } from 'react';
+import { Typography, Box, Container, CircularProgress } from '@mui/material';
+import ImgMediaCard from './componentes/card_img';
+import ComboCard from './componentes/combo_card';
+import api from './services/api';
 
+export default function App() {
+  const [data, setData] = useState({ products: [], combos: [] });
+  const [loading, setLoading] = useState(true);
 
-function App() {
-  const [count, setCount] = useState(0)
+  useEffect(() => {
+    api
+      .get("/")
+      .then(response => {
+        setData(response.data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 10 }}>
+        <CircularProgress />
+        <Typography sx={{ ml: 2 }}>Carregando cardápio...</Typography>
+      </Box>
+    );
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Container maxWidth="lg" sx={{ py: 4 }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: 3,
+          justifyContent: 'center',
+          alignItems: 'stretch' // Garante que cards na mesma linha tenham a mesma altura
+        }}
+      >
+        {/* Renderiza Produtos */}
+        {data.products?.map((p) => (
+          <ImgMediaCard key={`prod-${p.id}`} produto={p} />
+        ))}
+
+        {/* Renderiza Combos logo em seguida, no mesmo fluxo Flexbox */}
+        {data.combos?.map((c) => (
+          <ComboCard key={`combo-${c.id}`} combo={c} />
+        ))}
+      </Box>
+    </Container>
+  );
 }
-
-
-export default App

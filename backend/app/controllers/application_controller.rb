@@ -28,11 +28,11 @@ class ApplicationController < ActionController::API
     @products_json = []
 
     @combos.each do |combo|
-      @combos_json << ComboSerializer.render(combo)
+      @combos_json << ComboSerializer.render_as_hash(combo)
     end
 
     @products.each do |product|
-      @products_json << ProductSerializer.render(product)
+      @products_json << ProductSerializer.render_as_hash(product)
     end
     render json: { combos: @combos_json, products: @products_json }, status: :ok
   end
