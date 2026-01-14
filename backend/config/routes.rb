@@ -14,5 +14,5 @@ Rails.application.routes.draw do
   end
 
   # root "posts#index"
-  root "products#index"
+  root "application#index"
 end
