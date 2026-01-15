@@ -18,7 +18,6 @@ export interface Produto {
   descricao?: string;
 }
 
-
 const categoriaColors = {
   salgado: "#ff9800",
   doce: "#e91e63",
@@ -49,7 +48,16 @@ export default function ImgMediaCard({ produto, onAdd }: ImgMediaCardProps) {
   return (
     <Box 
       className={`flip-card ${isFlipped ? 'flipped' : ''}`} 
-      sx={{ width: { xs: '100%', sm: 280, md: 320 }, height: 430 }} 
+      sx={{ 
+        width: { xs: '100%', sm: 280, md: 320 }, 
+        height: 430,
+        // ANIMAÇÃO DE HOVER ADICIONADA AQUI
+        transition: 'transform 0.3s ease-in-out', 
+        '&:hover': {
+          transform: 'scale(1.05)', // Aumenta 5% o tamanho
+          zIndex: 10 // Garante que o card fique por cima dos outros vizinhos
+        }
+      }} 
     >
       <Box className="flip-card-inner">
         
@@ -74,7 +82,7 @@ export default function ImgMediaCard({ produto, onAdd }: ImgMediaCardProps) {
             </Typography>
           </CardContent>
 
-          {/* SELETOR DE QUANTIDADE (Visual preservado) */}
+          {/* SELETOR DE QUANTIDADE */}
           <Box sx={{ px: 2, mb: 1 }}>
             <Stack direction="row" alignItems="center" spacing={2} 
               sx={{ 
@@ -108,7 +116,7 @@ export default function ImgMediaCard({ produto, onAdd }: ImgMediaCardProps) {
                 '&:hover': { bgcolor: 'primary.dark' }
               }}
               onClick={() => {
-                onAdd(produto, quantity); // Passando o objeto produto
+                onAdd(produto, quantity); 
                 setQuantity(1); 
               }}
             >
