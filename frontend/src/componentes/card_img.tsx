@@ -8,7 +8,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import CartIcon from './carrinho_comp';
 import './card_img.css';
 
-// Interfaces atualizadas para serem compartilhadas
+// Interfaces
 export interface Produto {
   id: number;
   name: string;
@@ -30,7 +30,6 @@ function capitalize(str: string): string {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-// Interface Props atualizada para receber o objeto completo
 interface ImgMediaCardProps {
   produto: Produto;
   onAdd: (produto: Produto, quantity: number) => void;
@@ -51,11 +50,10 @@ export default function ImgMediaCard({ produto, onAdd }: ImgMediaCardProps) {
       sx={{ 
         width: { xs: '100%', sm: 280, md: 320 }, 
         height: 430,
-        // ANIMAÇÃO DE HOVER ADICIONADA AQUI
         transition: 'transform 0.3s ease-in-out', 
         '&:hover': {
-          transform: 'scale(1.05)', // Aumenta 5% o tamanho
-          zIndex: 10 // Garante que o card fique por cima dos outros vizinhos
+          transform: 'scale(1.05)', 
+          zIndex: 10 
         }
       }} 
     >
