@@ -1,8 +1,15 @@
-# Padoca
+# 🥖 Padoca
 
-Plataforma simples de vitrine e pré-pedidos para pequenas padarias e lojas de salgados.
+<p align="center">
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB"/>
+  <img src="https://img.shields.io/badge/Ruby_on_Rails-CC0000?style=for-the-badge&logo=rubyonrails&logoColor=white"/>
+  <img src="https://img.shields.io/badge/API-REST-005571?style=for-the-badge"/>
+</p>
 
----
+<p align="center">
+  <img src="./asserts/demo_v1.gif" width="800">
+</p>
+
 
 ## 🥐 Sobre o projeto
 
