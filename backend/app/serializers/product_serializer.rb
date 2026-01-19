@@ -1,6 +1,6 @@
 class ProductSerializer < Blueprinter::Base
   identifier :id
-  fields :name, :price, :category, :active
+  fields :name, :price, :category, :active, :description
 
   field :image_url do |product|
     if product.image.attached?

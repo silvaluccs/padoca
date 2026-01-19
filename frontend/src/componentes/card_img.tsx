@@ -15,7 +15,7 @@ export interface Produto {
   price: number;
   image_url: string;
   category: 'salgado' | 'doce' | 'bebida' | 'outros';
-  descricao?: string;
+  description?: string;
 }
 
 const categoriaColors = {
@@ -132,7 +132,7 @@ export default function ImgMediaCard({ produto, onAdd }: ImgMediaCardProps) {
               Detalhes
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ fontSize: '1rem', lineHeight: 1.5 }}>
-              {produto.descricao || "Sem descrição disponível."}
+              {produto.description || "Sem descrição disponível."}
             </Typography>
           </CardContent>
           <CardActions sx={{ px: 2, pb: 2 }}>
