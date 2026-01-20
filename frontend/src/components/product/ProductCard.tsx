@@ -5,42 +5,28 @@ import {
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import CartIcon from './carrinho_comp';
-import './card_img.css';
+import CartIcon from './CartIcon';
+import type { Produto } from '../../types';
+import { formatCurrency, capitalize } from '../../utils/formatters';
+import { CATEGORIA_COLORS } from '../../utils/constants';
+import './ProductCard.css';
 
-// Interfaces
-export interface Produto {
-  id: number;
-  name: string;
-  price: number;
-  image_url: string;
-  category: 'salgado' | 'doce' | 'bebida' | 'outros';
-  description?: string;
-}
-
-const categoriaColors = {
-  salgado: "#ff9800",
-  doce: "#e91e63",
-  bebida: "#2196f3",
-  outros: "#4caf50"
-};
-
-function capitalize(str: string): string {
-  if (!str) return "";
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
-interface ImgMediaCardProps {
+interface ProductCardProps {
   produto: Produto;
   onAdd: (produto: Produto, quantity: number) => void;
 }
 
-export default function ImgMediaCard({ produto, onAdd }: ImgMediaCardProps) {
+export default function ProductCard({ produto, onAdd }: ProductCardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [quantity, setQuantity] = useState(1);
 
   const handleIncrement = () => setQuantity(prev => prev + 1);
   const handleDecrement = () => setQuantity(prev => (prev > 1 ? prev - 1 : 1));
+
+  const handleAddToCart = () => {
+    onAdd(produto, quantity); 
+    setQuantity(1);
+  };
 
   if (!produto) return null;
 
@@ -59,7 +45,7 @@ export default function ImgMediaCard({ produto, onAdd }: ImgMediaCardProps) {
     >
       <Box className="flip-card-inner">
         
-        {/* FACE DA FRENTE */}
+        {/* FRENTE */}
         <Card className="flip-card-front" sx={{ borderRadius: 3, boxShadow: 5 }}>
           <CardMedia
             component="img"
@@ -73,16 +59,22 @@ export default function ImgMediaCard({ produto, onAdd }: ImgMediaCardProps) {
               {produto.name}
             </Typography>
             <Typography variant="body1" color="primary" sx={{ fontSize: 18, fontWeight: 600 }}>
-              R$ {Number(produto.price).toFixed(2).replace('.', ',')}
+              R$ {formatCurrency(produto.price)}
             </Typography>
-            <Typography variant="body2" sx={{ color: categoriaColors[produto.category], fontWeight: 600 }}>
+            <Typography 
+              variant="body2" 
+              sx={{ color: CATEGORIA_COLORS[produto.category], fontWeight: 600 }}
+            >
               {capitalize(produto.category)}
             </Typography>
           </CardContent>
 
-          {/* SELETOR DE QUANTIDADE */}
+          {/* Seletor de Quantidade */}
           <Box sx={{ px: 2, mb: 1 }}>
-            <Stack direction="row" alignItems="center" spacing={2} 
+            <Stack 
+              direction="row" 
+              alignItems="center" 
+              spacing={2} 
               sx={{ 
                 bgcolor: '#f5f5f5', 
                 borderRadius: 2, 
@@ -113,22 +105,25 @@ export default function ImgMediaCard({ produto, onAdd }: ImgMediaCardProps) {
                 color: 'white',
                 '&:hover': { bgcolor: 'primary.dark' }
               }}
-              onClick={() => {
-                onAdd(produto, quantity); 
-                setQuantity(1); 
-              }}
+              onClick={handleAddToCart}
             >
               <CartIcon />
             </IconButton>
           </CardActions>
         </Card>
 
-        {/* FACE DE TRÁS */}
+        {/* VERSO */}
         <Card className="flip-card-back" sx={{ borderRadius: 3, boxShadow: 5, backgroundColor: '#fafafa' }}>
           <CardContent sx={{ flexGrow: 1, mt: 2, textAlign: 'left' }}>
-            <Typography variant="h6" gutterBottom sx={{ 
-              fontWeight: 'bold', borderBottom: '2px solid', borderColor: categoriaColors[produto.category] 
-            }}>
+            <Typography 
+              variant="h6" 
+              gutterBottom 
+              sx={{ 
+                fontWeight: 'bold', 
+                borderBottom: '2px solid', 
+                borderColor: CATEGORIA_COLORS[produto.category] 
+              }}
+            >
               Detalhes
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ fontSize: '1rem', lineHeight: 1.5 }}>

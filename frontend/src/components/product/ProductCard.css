@@ -1,10 +1,8 @@
-/* Container principal que dá a profundidade */
 .flip-card {
   perspective: 1000px;
   background-color: transparent;
 }
 
-/* O conteúdo interno que realmente gira */
 .flip-card-inner {
   position: relative;
   width: 100%;
@@ -14,23 +12,20 @@
   transform-style: preserve-3d;
 }
 
-/* Classe aplicada quando o card deve girar */
 .flip-card.flipped .flip-card-inner {
   transform: rotateY(180deg);
 }
 
-/* Define que ambas as faces ocupam o mesmo espaço e esconde o fundo */
 .flip-card-front, .flip-card-back {
   position: absolute;
   width: 100%;
   height: 100%;
-  -webkit-backface-visibility: hidden; /* Safari */
+  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   display: flex;
   flex-direction: column;
 }
 
-/* Posiciona a face de trás já invertida */
 .flip-card-back {
   transform: rotateY(180deg);
 }
